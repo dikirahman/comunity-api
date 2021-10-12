@@ -1,0 +1,29 @@
+{
+  "name": "comunity-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dikirahman/comunity-api.git"
+  },
+  "author": "Diki Rahman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dikirahman/comunity-api/issues"
+  },
+  "homepage": "https://github.com/dikirahman/comunity-api#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.1",
+    "@hapi/jwt": "^2.1.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "joi": "^17.4.2",
+    "nanoid": "^3.1.29",
+    "node-pg-migrate": "^6.0.0",
+    "pg": "^8.7.1"
+  }
+}
