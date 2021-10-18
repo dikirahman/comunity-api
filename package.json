@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "start-dev": "nodemon ./src/server.js",
+    "migrate": "node-pg-migrate"
   },
   "repository": {
     "type": "git",
