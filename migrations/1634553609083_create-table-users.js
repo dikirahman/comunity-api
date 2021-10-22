@@ -12,6 +12,10 @@ exports.up = (pgm) => {
       type: 'VARCHAR(50)',
       notNull: true,
     },
+    name: {
+      type: 'VARCHAR(50)',
+      notNull: true,
+    },
     profession: {
       type: 'VARCHAR(50)',
       notNull: false,
@@ -35,10 +39,6 @@ exports.up = (pgm) => {
       notNull: true,
     },
     password: {
-      type: 'TEXT',
-      notNull: true,
-    },
-    fullname: {
       type: 'TEXT',
       notNull: true,
     },
