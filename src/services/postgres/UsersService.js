@@ -37,29 +37,44 @@ class UsersService {
   // verify username
   async verifyNewUsername(username) {
     const query = {
-        text: 'SELECT username FROM users WHERE username = $1',
-        values: [username],
+      text: 'SELECT username FROM users WHERE username = $1',
+      values: [username],
     };
-   
+
     const result = await this._pool.query(query);
 
     // if username  already in database
     if (result.rows.length > 0) {
-        throw new InvariantError('Gagal menambahkan user. Username sudah digunakan.')
+      throw new InvariantError('Gagal menambahkan user. Username sudah digunakan.')
     }
   }
 
   async verifyNewEmail(email) {
     const query = {
-        text: 'SELECT email FROM users WHERE email = $1',
-        values: [email],
+      text: 'SELECT email FROM users WHERE email = $1',
+      values: [email],
     };
-   
+
     const result = await this._pool.query(query);
 
     // if email  already in database
     if (result.rows.length > 0) {
-        throw new InvariantError('Gagal menambahkan user. Email sudah digunakan.')
+      throw new InvariantError('Gagal menambahkan user. Email sudah digunakan.')
+    }
+  }
+
+  async editProfileUserById(id, {name, profession, about, website}) {
+    const updatedAt = new Date().toISOString();
+
+    const query = {
+      text: 'UPDATE users SET name = $1, profession = $2, about = $3, website = $4 WHERE id = $5 RETURNING id',
+      values: [name, profession, about, website, id],
+    };
+    const result = await this._pool.query(query);
+
+    // if id not found
+    if (!result.rows.length) {
+      throw new NotFoundError('Gagal memperbarui user. Id tidak ditemukan');
     }
   }
 }
