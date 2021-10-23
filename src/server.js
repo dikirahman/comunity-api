@@ -27,7 +27,7 @@ const init = async () => {
       plugin: users,
       options: {
         service: usersService,
-        validator: UsersValidator
+        validator: UsersValidator,
       },
     },
   ]);
