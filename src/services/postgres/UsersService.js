@@ -2,6 +2,8 @@ const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 const InvariantError = require('../../exceptions/InvariantError');
+const NotFoundError = require('../../exceptions/NotFoundError');
+const AuthenticationError = require('../../exceptions/AuthenticationError');
 
 class UsersService {
   constructor() {
@@ -61,6 +63,32 @@ class UsersService {
     if (result.rows.length > 0) {
       throw new InvariantError('Gagal menambahkan user. Email sudah digunakan.')
     }
+  }
+
+  async verifyUserCredential(username, password) {
+    const query = {
+      text: 'SELECT id, password FROM users WHERE username = $1 OR email = $1',
+      values: [username],
+    };
+
+    const result = await this._pool.query(query);
+    // if id and password not found
+    if (!result.rows.length) {
+      throw new AuthenticationError('Kredensial yang Anda berikan salah');
+    }
+
+    const { id, password: hashedPassword } = result.rows[0];
+
+    // compare hashedpassword value with password
+    const match = await bcrypt.compare(password, hashedPassword);
+
+    // if hashedpassword is different with password
+    if (!match) {
+      throw new AuthenticationError('Kredensial yang Anda berikan salah');
+    }
+
+    // if the hashedpassword is the same as the password
+    return id;
   }
 
   async editProfileUserById(id, {name, profession, about, website}) {
