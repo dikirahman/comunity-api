@@ -4,6 +4,11 @@ const routes = (handler) => [
     path: '/users',
     handler: handler.postUserHandler,
   },
+  {
+    method: 'PUT',
+    path: '/users',
+    handler: handler.putProfileUserByIdhandler,
+  },
 ];
 
 module.exports = routes;
