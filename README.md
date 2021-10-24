@@ -2,7 +2,8 @@
 <br><br>
 
 ![GitHub top language](https://img.shields.io/github/languages/top/dikirahman/comunity-api?style=for-the-badge)
-
+![GitHub issues](https://img.shields.io/github/issues/dikirahman/comunity-api?style=for-the-badge)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/dikirahman/comunity-api?style=for-the-badge)
 # Welcome - An open API for comunity or organizations app
 |<p align="left"> Information </p> |
 |:------------:|
