@@ -1,4 +1,4 @@
-![Logo](./public/logo.svg)
+![Logo](./public/logo.png)
 <br><br>
 
 ![GitHub top language](https://img.shields.io/github/languages/top/dikirahman/comunity-api?style=for-the-badge)
