@@ -1,12 +1,12 @@
-<center>  ![Logo](./public/logo.png) </center>
+![Logo](./public/logo.png)
 <br><br>
 
 ![GitHub top language](https://img.shields.io/github/languages/top/dikirahman/comunity-api?style=for-the-badge)
 
 # Welcome - An open API for comunity or organizations app
-|<left> Information </left> |
+|<p align="left"> Information </p> |
 |:------------:|
-|<left>This Rest-API for comunity or organizations app, you can CRUD organization, project, collaboration project and give stars to project </left>|
+|<p align="left">This Rest-API for comunity or organizations app, you can CRUD organization, project, collaboration project and give stars to project </p>|
 
 <br><br>
 
