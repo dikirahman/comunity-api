@@ -36,5 +36,5 @@ exports.up = (pgm) => {
 };
  
 exports.down = (pgm) => {
-  pgm.dropTable('users');
+  pgm.dropTable('organizations');
 };
