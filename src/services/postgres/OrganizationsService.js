@@ -5,8 +5,9 @@ const NotFoundError = require('../../exceptions/NotFoundError');
 const AuthorizationError = require('../../exceptions/AuthorizationError');
 
 class OrganizationsService {
-  constructor() {
+  constructor(memberService) {
     this._pool = new Pool();
+    this._memberService = memberService;
   }
 
   async addOrganization({owner, name}) {
@@ -29,6 +30,45 @@ class OrganizationsService {
     }
 
     return result.rows[0].id;
+  }
+
+  async verifyOrganizationOwner(id) {
+    const query = {
+      text: 'SELECT * FROM organizations WHERE id = $1',
+      values: [id],
+    };
+
+    // run query
+    const result = await this._pool.query(query);
+
+    // if note not found
+    if (!result.rows.length) {
+      throw new NotFoundError('Organisasi tidak ditemukan');
+    }
+
+    // if note found
+    const note = result.rows[0];
+
+    // if note is not hers
+    if (note.owner !== owner) {
+      throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
+    }       
+  }
+
+  async verifyOrganizationRole(organizationId, userId) {
+    try {
+      await this.verifyOrganizationOwner(organizationId, userId);
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw error;
+      }
+
+      try {
+        await this._memberService.verifyMemberRole(organizationId, userId);
+      } catch {
+        throw error;
+      }
+    }
   }
 }
 
