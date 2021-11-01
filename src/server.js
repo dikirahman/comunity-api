@@ -19,12 +19,20 @@ const organizations = require('./api/organizations');
 const OrganizationsService = require('./services/postgres/OrganizationsService');
 const OrganizationsValidator = require('./validator/organizations');
 
+// members
+const members = require('./api/members');
+const MembersService = require('./services/postgres/MembersService');
+const MembersValidator = require('./validator/members');
+
 const init = async () => {
   // user service
   const usersService = new UsersService();
   // authentication service
   const authenticationsService = new AuthenticationsService();
-  const organizationsService = new OrganizationsService();
+  // member service 
+  const membersService = new MembersService();
+  // organization service
+  const organizationsService = new OrganizationsService(membersService);
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -83,6 +91,14 @@ const init = async () => {
       options: {
         service: organizationsService,
         validator: OrganizationsValidator,
+      }
+    },
+    {
+      plugin: members,
+      options: {
+        membersService,
+        organizationsService,
+        validator: MembersValidator,
       }
     },
   ]);
