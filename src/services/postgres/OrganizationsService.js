@@ -55,7 +55,7 @@ class OrganizationsService {
     }       
   }
 
-  async verifyOrganizationRole(organizationId, userId) {
+  async verifyOrganizationAccess(organizationId, userId) {
     try {
       await this.verifyOrganizationOwner(organizationId, userId);
     } catch (error) {
