@@ -1,9 +1,12 @@
 const ClientError = require('../../exceptions/ClientError');
 
 class MembersHandler {
-  constructor(service, validator) {
-    this._service = service;
+  constructor(membersService, organizationsService, validator) {
+    this._membersService = membersService;
+    this._organizationService = organizationsService;
     this._validator = validator;
+
+    this.postMemberHandler = this.postMemberHandler.bind(this);
   }
 
   async postMemberHandler(request, h) {
@@ -14,7 +17,19 @@ class MembersHandler {
 
       const {id: credentialId } = request.auth.credentials;
 
-      await this._service.verifyOrganizationRole(id);
+      await this._membersService.verifyOrganizationOwner(id);
+
+      await this._membersService.addMember(organizationId, userId, role)
+      
+      const response = h.response({
+        status: 'success',
+        message: 'Kolaborasi berhasil ditambahkan',
+        data: {
+          memberId,
+        },
+      });
+      response.code(201);
+      return response;
 
     } catch (error) {
       if (error instanceof ClientError) {
