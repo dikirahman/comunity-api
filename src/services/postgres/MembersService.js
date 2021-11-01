@@ -10,7 +10,7 @@ class MembersService {
   }
 
   async addMember({organizationId, userId, role}) {
-    const id = `org-${nanoid(16)}`;
+    const id = `mem-${nanoid(16)}`;
     const createdAt = new Date().toISOString();
 
     const query = {
@@ -30,33 +30,10 @@ class MembersService {
     return result.rows[0].id;
   }
 
-  async verifyOrganizationOwner(id) {
+  async verifyMemberRole(organizationId, userId) {
     const query = {
-      text: 'SELECT * FROM organizations WHERE id = $1',
-      values: [id],
-    };
-
-    // run query
-    const result = await this._pool.query(query);
-
-    // if note not found
-    if (!result.rows.length) {
-      throw new NotFoundError('Organisasi tidak ditemukan');
-    }
-
-    // if note found
-    const note = result.rows[0];
-
-    // if note is not hers
-    if (note.owner !== owner) {
-      throw new AuthorizationError('Anda tidak berhak mengakses resource ini');
-    }       
-  }
-
-  async verifyOrganizationRole(id) {
-    const query = {
-      text: 'SELECT role FROM members WHERE user_id = $1',
-      values: [email],
+      text: 'SELECT role FROM members WHERE organization_id = $1 AND user_id = $2',
+      values: [organizatoinId, userId],
     };
 
     const result = await this._pool.query(query);
