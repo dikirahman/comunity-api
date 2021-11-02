@@ -17,13 +17,13 @@ class MembersHandler {
 
       const {id: credentialId } = request.auth.credentials;
 
-      await this._membersService.verifyOrganizationOwner(id);
+      await this._organizationService.verifyOrganizationRole(organizationId, credentialId);
 
-      await this._membersService.addMember(organizationId, userId, role)
+      await this._membersService.addMember(organizationId, userId, role);
       
       const response = h.response({
         status: 'success',
-        message: 'Kolaborasi berhasil ditambahkan',
+        message: 'User berhasil ditambahkan ke organisasi',
         data: {
           memberId,
         },
