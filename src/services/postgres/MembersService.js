@@ -16,7 +16,7 @@ class MembersService {
     const query = {
       text: `INSERT INTO members
       values($1, $2, $3, $4, $5)
-      RETURNING Id`,
+      RETURNING id`,
       values: [id, organizationId, userId, role, createdAt],
     }
 
