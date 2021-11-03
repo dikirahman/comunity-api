@@ -19,7 +19,9 @@ class MembersHandler {
 
       await this._organizationService.verifyOrganizationRole(organizationId, credentialId);
 
-      await this._membersService.addMember(organizationId, userId, role);
+      await this._membersService.verifyMemberStatus(organizationId, userId);
+
+      const memberId = await this._membersService.addMember(organizationId, userId, role);
       
       const response = h.response({
         status: 'success',
