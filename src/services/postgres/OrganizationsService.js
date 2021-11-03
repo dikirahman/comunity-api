@@ -18,7 +18,7 @@ class OrganizationsService {
     const query = {
       text: `INSERT INTO organizations (id, owner, name, created_at, updated_at)
       VALUES ($1, $2, $3, $4, $5) 
-      RETURNING Id`,
+      RETURNING id`,
       values: [id, owner, name, createdAt, updatedAt],
     }
 
