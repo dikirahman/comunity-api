@@ -12,6 +12,10 @@ exports.up = (pgm) => {
       type: 'VARCHAR(50)',
       notNull: true,
     },
+    user_id: {
+      type: 'VARCHAR(50)',
+      notNull: true,
+    },
     role: {
       type: 'VARCHAR(50)',
       notNull: true,
